@@ -12,13 +12,14 @@ const [todoList, settodoList] = useState([])
  const [tags, setTags] = useState([
   
   ]);
+  // Tags functionality starts
   const handleDrag = (tag, currPos, newPos) => {
     const newTags = tags.slice();
 
     newTags.splice(currPos, 1);
     newTags.splice(newPos, 0, tag);
 
-    // re-render
+   
     setTags(newTags);
   };
   const handleTagClick = index => {
@@ -30,7 +31,9 @@ const handleDelete = i => {
 const handleAddition = tag => {
   setTags([...tags, tag]);
 };
+// Tags functionality ends
  
+//Form functionality Starts
  const createTodoItem = (todo) => {
   const newTodoItems = [...todoList, {dueDate,tags,status, todo,description, complete: false, timeStamp:  new Date().toLocaleString()}];
   settodoList(newTodoItems);
@@ -80,16 +83,32 @@ const handleAddition = tag => {
         }
         settodoList(newTodoItems);
         };
+
+        //Form functionality ends
+
+        //Ant taable functionality starts
         const columns = [
           {
             title: 'Todo',
             dataIndex: 'todo',
             key: 'todo',
+            width: '15%',
             render: (text, record) => (
               <p style={{textDecoration: record.complete ? "line-through" : ""}}>{text}</p>
              ),
              sorter: {
               compare: (a, b) => a.todo > b.todo,
+              },
+           },
+           {
+            title: 'Description',
+            dataIndex: 'description',
+            key: 'description',
+            render: (text, record) => (
+              <p style={{textDecoration: record.complete ? "line-through" : ""}}>{text}</p>
+             ),
+             sorter: {
+              compare: (a, b) => a.description > b.description,
               },
            },
           
@@ -135,17 +154,7 @@ const handleAddition = tag => {
             onFilter: (value, record) => record.status.indexOf(value) === 0,
           },
         
-          {
-            title: 'Description',
-            dataIndex: 'description',
-            key: 'description',
-            render: (text, record) => (
-              <p style={{textDecoration: record.complete ? "line-through" : ""}}>{text}</p>
-             ),
-             sorter: {
-              compare: (a, b) => a.description > b.description,
-              },
-           },
+         
            {
             title: 'Tag',
             dataIndex: 'tags',
@@ -157,9 +166,10 @@ const handleAddition = tag => {
            },
           
           {
-            title: 'Button Test',
+            title: 'Delete',
             key: 'key',
             dataIndex: 'key',
+            width:"5%",
             render: (text, record) => (
              <button onClick={()=>deleteTodoItem(record)}>
                Delete
@@ -167,9 +177,10 @@ const handleAddition = tag => {
             ),
           },
           {
-            title: 'Button Test',
+            title: 'Completed',
             key: 'key',
             dataIndex: 'key',
+            width:"5%",
             render: (text, record) => (
              <button onClick={()=>completeTodoItem(record)}>
                Completed
@@ -177,9 +188,10 @@ const handleAddition = tag => {
             ),
           },
           {
-            title: 'Button Test',
+            title: 'Update',
             key: 'key',
             dataIndex: 'key',
+            width:"5%",
             render: (text, record) => (
              <button onClick={()=>updateTodoItem(record)}>
               Update
@@ -189,7 +201,7 @@ const handleAddition = tag => {
           
         ];
    
-
+//Ant taable functionality ends
 
 
      
